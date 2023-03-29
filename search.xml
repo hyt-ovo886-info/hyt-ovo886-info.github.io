@@ -219,25 +219,6 @@
     
     
     <entry>
-      <title>语义化标签</title>
-      <link href="/2019/09/28/html/%E8%AF%AD%E4%B9%89%E5%8C%96%E6%A0%87%E7%AD%BE/"/>
-      <url>/2019/09/28/html/%E8%AF%AD%E4%B9%89%E5%8C%96%E6%A0%87%E7%AD%BE/</url>
-      
-        <content type="html"><![CDATA[<h1 id="语义化标签"><a href="#语义化标签" class="headerlink" title="语义化标签"></a>语义化标签</h1><ul><li>正确的标签做正确的事情！</li><li>HTML语义化就是让页面的内容结构化，便于对浏览器、搜索引擎解析</li><li>在没有样式CSS情况下也以一种文档格式显示，并且是容易阅读的。</li><li>搜索引擎的爬虫依赖于标记来确定上下文和各个关键字的权重，利于 SEO</li><li>使阅读源代码的人对网站更容易将网站分块，便于阅读维护理解</li></ul><h2 id="常见的标签"><a href="#常见的标签" class="headerlink" title="常见的标签"></a>常见的标签</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">header</span>&gt;</span><span class="tag">&lt;/<span class="name">header</span>&gt;</span>页眉通常包括网站标志、主导航、全站链接以及搜索框</span><br><span class="line"><span class="tag">&lt;<span class="name">nav</span>&gt;</span><span class="tag">&lt;/<span class="name">nav</span>&gt;</span>标记导航，仅对文档中重要的链接群使用</span><br><span class="line"><span class="tag">&lt;<span class="name">main</span>&gt;</span><span class="tag">&lt;/<span class="name">main</span>&gt;</span>页面主要内容，一个页面只能使用一次</span><br><span class="line"><span class="tag">&lt;<span class="name">article</span>&gt;</span><span class="tag">&lt;/<span class="name">article</span>&gt;</span>定义外部的内容，其中的内容独立于文档的其余部分</span><br><span class="line"><span class="tag">&lt;<span class="name">section</span>&gt;</span><span class="tag">&lt;/<span class="name">section</span>&gt;</span>定义文档中的节。比如章节、页眉、页脚或文档中的其他部分</span><br><span class="line"><span class="tag">&lt;<span class="name">aside</span>&gt;</span><span class="tag">&lt;/<span class="name">aside</span>&gt;</span>定义其所处内容之外的内容。如侧栏、文章链接、广告、相关产品列表等</span><br><span class="line"><span class="tag">&lt;<span class="name">footer</span>&gt;</span><span class="tag">&lt;/<span class="name">footer</span>&gt;</span>页脚，只有当父级是body时，才是整个页面的页脚</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">ul</span>&gt;</span><span class="tag">&lt;/<span class="name">ul</span>&gt;</span>无序列表     </span><br><span class="line"><span class="tag">&lt;<span class="name">li</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span>有序列表    </span><br><span class="line"><span class="tag">&lt;<span class="name">small</span>&gt;</span><span class="tag">&lt;/<span class="name">small</span>&gt;</span>呈现小号字体效果，指定细则，输入免责声明、注解、署名、版权</span><br><span class="line"><span class="tag">&lt;<span class="name">em</span>&gt;</span><span class="tag">&lt;/<span class="name">em</span>&gt;</span>将其中的文本表示为强调的内容，表现为斜体</span><br></pre></td></tr></table></figure>]]></content>
-      
-      
-      <categories>
-          
-          <category> HTML </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>em/px/rem/vh/vw区别</title>
       <link href="/2019/09/28/css/css%E5%8D%95%E4%BD%8D%E7%9A%84%E5%8C%BA%E5%88%AB/"/>
       <url>/2019/09/28/css/css%E5%8D%95%E4%BD%8D%E7%9A%84%E5%8C%BA%E5%88%AB/</url>
@@ -282,11 +263,11 @@
     
     
     <entry>
-      <title>HTML</title>
-      <link href="/2019/09/27/html/HTML/"/>
-      <url>/2019/09/27/html/HTML/</url>
+      <title>语义化标签</title>
+      <link href="/2019/09/28/html/%E8%AF%AD%E4%B9%89%E5%8C%96%E6%A0%87%E7%AD%BE/"/>
+      <url>/2019/09/28/html/%E8%AF%AD%E4%B9%89%E5%8C%96%E6%A0%87%E7%AD%BE/</url>
       
-        <content type="html"><![CDATA[<h2 id="html是什么"><a href="#html是什么" class="headerlink" title="html是什么"></a>html是什么</h2><ul><li>HTML的全称为超文本标记语言，是一种标记语言。</li><li>HTML文本是由HTML命令组成的描述性文本，HTML命令可以说明文字，图形、动画、声音、表格、链接等</li></ul>]]></content>
+        <content type="html"><![CDATA[<h1 id="语义化标签"><a href="#语义化标签" class="headerlink" title="语义化标签"></a>语义化标签</h1><ul><li>正确的标签做正确的事情！</li><li>HTML语义化就是让页面的内容结构化，便于对浏览器、搜索引擎解析</li><li>在没有样式CSS情况下也以一种文档格式显示，并且是容易阅读的。</li><li>搜索引擎的爬虫依赖于标记来确定上下文和各个关键字的权重，利于 SEO</li><li>使阅读源代码的人对网站更容易将网站分块，便于阅读维护理解</li></ul><h2 id="常见的标签"><a href="#常见的标签" class="headerlink" title="常见的标签"></a>常见的标签</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">header</span>&gt;</span><span class="tag">&lt;/<span class="name">header</span>&gt;</span>页眉通常包括网站标志、主导航、全站链接以及搜索框</span><br><span class="line"><span class="tag">&lt;<span class="name">nav</span>&gt;</span><span class="tag">&lt;/<span class="name">nav</span>&gt;</span>标记导航，仅对文档中重要的链接群使用</span><br><span class="line"><span class="tag">&lt;<span class="name">main</span>&gt;</span><span class="tag">&lt;/<span class="name">main</span>&gt;</span>页面主要内容，一个页面只能使用一次</span><br><span class="line"><span class="tag">&lt;<span class="name">article</span>&gt;</span><span class="tag">&lt;/<span class="name">article</span>&gt;</span>定义外部的内容，其中的内容独立于文档的其余部分</span><br><span class="line"><span class="tag">&lt;<span class="name">section</span>&gt;</span><span class="tag">&lt;/<span class="name">section</span>&gt;</span>定义文档中的节。比如章节、页眉、页脚或文档中的其他部分</span><br><span class="line"><span class="tag">&lt;<span class="name">aside</span>&gt;</span><span class="tag">&lt;/<span class="name">aside</span>&gt;</span>定义其所处内容之外的内容。如侧栏、文章链接、广告、相关产品列表等</span><br><span class="line"><span class="tag">&lt;<span class="name">footer</span>&gt;</span><span class="tag">&lt;/<span class="name">footer</span>&gt;</span>页脚，只有当父级是body时，才是整个页面的页脚</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">ul</span>&gt;</span><span class="tag">&lt;/<span class="name">ul</span>&gt;</span>无序列表     </span><br><span class="line"><span class="tag">&lt;<span class="name">li</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span>有序列表    </span><br><span class="line"><span class="tag">&lt;<span class="name">small</span>&gt;</span><span class="tag">&lt;/<span class="name">small</span>&gt;</span>呈现小号字体效果，指定细则，输入免责声明、注解、署名、版权</span><br><span class="line"><span class="tag">&lt;<span class="name">em</span>&gt;</span><span class="tag">&lt;/<span class="name">em</span>&gt;</span>将其中的文本表示为强调的内容，表现为斜体</span><br></pre></td></tr></table></figure>]]></content>
       
       
       <categories>
@@ -339,6 +320,25 @@
             <tag> 概念 </tag>
             
         </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>HTML</title>
+      <link href="/2019/09/27/html/HTML/"/>
+      <url>/2019/09/27/html/HTML/</url>
+      
+        <content type="html"><![CDATA[<h2 id="html是什么"><a href="#html是什么" class="headerlink" title="html是什么"></a>html是什么</h2><ul><li>HTML的全称为超文本标记语言，是一种标记语言。</li><li>HTML文本是由HTML命令组成的描述性文本，HTML命令可以说明文字，图形、动画、声音、表格、链接等</li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> HTML </category>
+          
+      </categories>
+      
       
     </entry>
     
