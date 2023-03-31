@@ -4,6 +4,120 @@
   
     
     <entry>
+      <title>QoS服务等级</title>
+      <link href="/2022/05/24/%E7%89%A9%E8%81%94%E7%BD%91/Qos%E6%9C%8D%E5%8A%A1%E7%AD%89%E7%BA%A7/"/>
+      <url>/2022/05/24/%E7%89%A9%E8%81%94%E7%BD%91/Qos%E6%9C%8D%E5%8A%A1%E7%AD%89%E7%BA%A7/</url>
+      
+        <content type="html"><![CDATA[<h1 id="什么是服务质量"><a href="#什么是服务质量" class="headerlink" title="什么是服务质量"></a>什么是服务质量</h1><p>一个物联网系统中有些信息非常重要，我们需要确保这类重要信息可以准确无误的发送和接收，而有些信息则相对不那么重要，这类信息如果在传输中丢失也不会影响到整个系统运行<br><strong>MQTT协议有三种服务质量级别：</strong></p><ul><li>QoS = 0 最多发一次</li><li>Qos = 1 最少发一次</li><li>QoS = 2 保证收到一次<br>以上三种不同的服务质量级别意味着不同的MQTT传输流程。对于较为重要的MQTT消息，我们通常会选择QoS&gt;o的服务级别 (即QOS 为1或2)。</li></ul><h2 id="QoS-0-最多发一次"><a href="#QoS-0-最多发一次" class="headerlink" title="QoS = 0 最多发一次"></a>QoS = 0 最多发一次</h2><p>o是服务质量QoS的最低级别。当QoS为o级时，MQIT协议并不保证所有信息都能得以传输也就是说，QoS=o的情况下，MQTT服务端和客户端不会对消息传输是否成功进行确认和检查。消息能否成功传输全石网络环境是否稳定</p><h2 id="Qos-1-最少发一次"><a href="#Qos-1-最少发一次" class="headerlink" title="Qos = 1 最少发一次"></a>Qos = 1 最少发一次</h2><p>当QoS级别为1时，发送端在消息发送完成后，会检查接收端是否已经成功接收到了消息<br>什么意思呢：<br>  当我们的发送端发送一条信息的时，它会要求服务端给一个确认</p><h2 id="QoS-2-保证收到一次"><a href="#QoS-2-保证收到一次" class="headerlink" title="QoS = 2 保证收到一次"></a>QoS = 2 保证收到一次</h2><p>MQTT服务质量最高级是2级，即QoS = 2。当MQTT服务质量为2级时，MQTT协议可以确保接收端只接收一次消息。<br>QoS=2的收发相对更加复杂。发送端需要接收端进行两次消息确认。因此，2级MOTT服务质量是最安全的服务级别，也是最慢的服务级别<br>类似与tcp：它发送到服务端后服务端返回一个确定 它在发送一条信息询问服务端你确定收到了码 服务端回在返回一个确定信息 </p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 物联网 </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>主题进阶</title>
+      <link href="/2022/05/23/%E7%89%A9%E8%81%94%E7%BD%91/%E4%B8%BB%E9%A2%98%E8%BF%9B%E9%98%B6/"/>
+      <url>/2022/05/23/%E7%89%A9%E8%81%94%E7%BD%91/%E4%B8%BB%E9%A2%98%E8%BF%9B%E9%98%B6/</url>
+      
+        <content type="html"><![CDATA[<h1 id="主题的基本形式"><a href="#主题的基本形式" class="headerlink" title="主题的基本形式"></a>主题的基本形式</h1><p>主题的最基本形式就是一个字符串。以下是几个主题示例</p><ul><li><p>myTopic</p></li><li><p>motorSpeed</p></li><li><p>MotorSpeed</p></li><li><p>current time</p><p><strong>在使用主题时需要注意以下几点：</strong></p><ul><li><em><strong>主题是区分大小写的</strong></em> 如上列表中的主题 motor_speed和Motor_speed是两个完全不同的主题</li><li><em><strong>主题可以使用空格</strong></em> 如以上列表中的current time，虽然有空格分隔current和time这两个词，但这实际是一个MQTT主题。不过，虽然我们可以使用空格，强烈建议<strong>不要在主题中使用空格</strong></li><li><em><strong>大部分MQIT服务端是不支持中文主题的</strong></em>，所以我们应使用英文字符或ASCII字符来作为MOTT主题</li></ul></li></ul><h1 id="主题分级"><a href="#主题分级" class="headerlink" title="主题分级"></a>主题分级</h1><p>MQIT主题可以是一个简单的字符串，比如motro_speed，myTopic。这些都是单一级别的主题</p><p>为了更好的对主题进行管理和分类，我们可以对主题进行分级处理。MOTT主题各个级别之间可以使用 <strong>/</strong> 来分隔。如下例所示:</p><p><strong>Tyler-1/motor/1/speed</strong></p><h1 id="主题的通配符"><a href="#主题的通配符" class="headerlink" title="主题的通配符"></a>主题的通配符</h1><p>当客户端订阅主题时，可以使用通配符同时订阅多个主鄙。通配符只能在订阅主题时使用，下面我们将介绍两种通配符: 单级通配符和多级通配符</p><h2 id="单级通配符"><a href="#单级通配符" class="headerlink" title="单级通配符 +"></a>单级通配符 +</h2><p>单级通配符可以代替一个主题级别。 以下为含有单极通配符的主题示例<br> <strong>home/sersor/+/temperature</strong><br>当客户端订阅了以上主题后，它将会收到以下主题的信息内容:<br><strong>home/sersor/kitchen/temperature</strong><br><strong>home/sensor/bedroom/temperature</strong><br>在home后面的级别中，由于客户端订阅的主题使用了+ 单级迪配符，因此不论home级别后面的内容是什么，客户端都能收到这些主题的信息。+ 可以代表任何主题，类似于正则表达式</p><h2 id="多级通配符"><a href="#多级通配符" class="headerlink" title="多级通配符"></a>多级通配符</h2><p>单级通配符仅可代替一个主题级别，而多级通配符”#”可以涵盖任意数量的主题级别。如下示例所示，多级通配符必须是主题中的最后一个字符<br><strong>home/sensor/#</strong><br>当客户端订阅了以上含有”#”的主题后，可以收到以下主题的信息<br><strong>home/sensor/kitchen/temperature</strong><br><strong>home/sensor/bedroom/brightness</strong><br><strong>home/sensor/data</strong></p><p>注意这个 # 只能放到最后</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 物联网 </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>发布、订阅和取消订阅</title>
+      <link href="/2022/05/22/%E7%89%A9%E8%81%94%E7%BD%91/%E5%8F%91%E5%B8%83%E3%80%81%E8%AE%A2%E9%98%85%E5%92%8C%E5%8F%96%E6%B6%88%E8%AE%A2%E9%98%85/"/>
+      <url>/2022/05/22/%E7%89%A9%E8%81%94%E7%BD%91/%E5%8F%91%E5%B8%83%E3%80%81%E8%AE%A2%E9%98%85%E5%92%8C%E5%8F%96%E6%B6%88%E8%AE%A2%E9%98%85/</url>
+      
+        <content type="html"><![CDATA[<h2 id="MQTT报文："><a href="#MQTT报文：" class="headerlink" title="MQTT报文："></a>MQTT报文：</h2><ul><li>PUBLISH - 发布消息</li><li>SUBSCRIBE - 订阅主题</li><li>SUBACK -订阅确认</li><li>UNSUBSCRIBE - 取消订阅</li></ul><h2 id="PUBLISH-发布消息"><a href="#PUBLISH-发布消息" class="headerlink" title="PUBLISH - 发布消息"></a>PUBLISH - 发布消息</h2><p><strong>PUBLISH报文所包含内容：</strong></p><table><thead><tr><th>名称</th><th>内容</th></tr></thead><tbody><tr><td>packetId</td><td>数值类型 必须是唯一值 用来定位客户端</td></tr><tr><td>topicName</td><td>字符串类型  用来定义主题</td></tr><tr><td>qos</td><td>数值类型   服务质量：决定信息重要性</td></tr><tr><td>retainFlag</td><td>布尔类型  是否保存这个消息</td></tr><tr><td>payload</td><td>字符串类型  用来发送主题的内容 比如温度</td></tr><tr><td>dupFlag</td><td>布尔类型  是否重复发送</td></tr></tbody></table><h2 id="SUBSCRIBE-订阅主题"><a href="#SUBSCRIBE-订阅主题" class="headerlink" title="SUBSCRIBE - 订阅主题"></a>SUBSCRIBE - 订阅主题</h2><p>当客户端连接到服务端后，除了可以发布消息，也可以接收消息。所有MQTT消息都有主题。客户端要想接收消息，首先要订阅该消息的主题。这样，当有客户端向该主题发布消息后，订阅了该主题的客户端就能接收到消息了。</p><p>客户端要想订阅主题，首先要向服务端发送主题订阅请求。客户端是通过向服务端发送SUBSCRIBE报文来实现这一请求的。该报文包含有一系列“订阅主题名”，<strong>一个SUBSCRIBE报文可以包含有单个或者多个订阅主题名</strong>。也就是说，个SUBSCRIBE报文可以用于订阅一个或者多个主题。</p><h1 id="SUBACK-订阅确认"><a href="#SUBACK-订阅确认" class="headerlink" title="SUBACK -订阅确认"></a>SUBACK -订阅确认</h1><p>服务端接收到客户端的订阅报文后，会向客户端发送SUBACK报文确认订阅<br>SUBACK报文包含有“订阅返回码”和“报文标识符”这两个信息<br>returnCode - 订阅返回码</p><table><thead><tr><th>返回码</th><th>描述</th></tr></thead><tbody><tr><td>0</td><td>订阅成功-QoS o</td></tr><tr><td>1</td><td>订阅成功- QoS 1</td></tr><tr><td>2</td><td>订阅成功- QOS 2</td></tr><tr><td>128</td><td>订阅失败</td></tr></tbody></table><h2 id="UNSUBSCRIBE-取消订阅"><a href="#UNSUBSCRIBE-取消订阅" class="headerlink" title="UNSUBSCRIBE - 取消订阅"></a>UNSUBSCRIBE - 取消订阅</h2><p>当客户端取消订阅某个主题时，可以通过发送UNSUBSCRIBE-取消订阅</p><table><thead><tr><th>名称</th><th>内容</th></tr></thead><tbody><tr><td>packetId</td><td>数值</td></tr><tr><td>topicl</td><td>字符串 取消订阅的主题1</td></tr><tr><td>topic2</td><td>字符串 取消订阅的主题2</td></tr><tr><td>topic<strong>N</strong></td><td>字符串 取消订阅的主题<strong>N</strong></td></tr></tbody></table>]]></content>
+      
+      
+      <categories>
+          
+          <category> 物联网 </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>连接MQTT服务端</title>
+      <link href="/2022/05/21/%E7%89%A9%E8%81%94%E7%BD%91/%E8%BF%9E%E6%8E%A5MQTT%E6%9C%8D%E5%8A%A1%E7%AB%AF/"/>
+      <url>/2022/05/21/%E7%89%A9%E8%81%94%E7%BD%91/%E8%BF%9E%E6%8E%A5MQTT%E6%9C%8D%E5%8A%A1%E7%AB%AF/</url>
+      
+        <content type="html"><![CDATA[<p>MQTT客户端之间要想实现通讯，必须要通过MQTT服务端。因此MQTT客户端无论是发布消息还是订阅消息，首先都要连接MQTT服务端。</p><h2 id="MQTT客户端连接服务器一共有2步"><a href="#MQTT客户端连接服务器一共有2步" class="headerlink" title="MQTT客户端连接服务器一共有2步"></a>MQTT客户端连接服务器一共有2步</h2><ul><li>首先MQTT客户端将会向服务端发送连接请求。该请求实际上是一个包含有连接请求信息的数据包。这个数据包的官方名称为CONNECT</li><li>MQTT服务端接受到客户端的请求连接后，会向客户端发送连接确认，这个确认也是一个数据包，这个包名也是CONNEXCT<h2 id="CONNECT"><a href="#CONNECT" class="headerlink" title="CONNECT"></a>CONNECT</h2>MQIT客户端要想连接服务端，首先要向服务端发送CONNECT报文。如果此CONNECT报文的格式或内容不符合MQTT规范，则服务器会拒绝客户端的连接请求<br>  <strong>CONNECT报文所包含内容：</strong><table><thead><tr><th>名称</th><th>内容</th></tr></thead><tbody><tr><td>clientId</td><td>字符串类型 必须是唯一值 用来定位客户端</td></tr><tr><td>cleanSession</td><td>布尔类型 向重要的服务端发送信息 需要服务端确认 服务端端不会保存任何信息</td></tr><tr><td>username 可选</td><td>字符串类型</td></tr><tr><td>password 可选</td><td>字符串类型</td></tr><tr><td>lastwillTopic 可选</td><td>字符串类型</td></tr><tr><td>lastwillQos 可选</td><td>数值类型</td></tr><tr><td>lastwillMessage 可选</td><td>字符串类型</td></tr><tr><td>lastwillRetain 可选</td><td>布尔类型</td></tr><tr><td>keepAlive</td><td>数值类型 心跳时间间隔</td></tr></tbody></table></li></ul><p>服务端返回的连接确认的CONNACK确认包<br>    <strong>CONNACK报文所包含内容：</strong></p><table><thead><tr><th>名称</th><th>内容</th></tr></thead><tbody><tr><td>sessionPresent</td><td>布尔类型</td></tr><tr><td>returnCode</td><td>数值类型 连接返回码</td></tr></tbody></table><ul><li><p>returnCode<br>  连接返回码：</p><table><thead><tr><th>返回码</th><th>描述</th></tr></thead><tbody><tr><td>0</td><td>成功</td></tr><tr><td>1</td><td>连接被服务端拒绝，原因是不支持客户端的MQTT协议版本</td></tr><tr><td>2</td><td>连接被服务端拒绝，原因是不支持客户端标识符的编码。可能造成此原因的是客户端标识符编码是UTF-8，但是服务端不允许使用此编码。</td></tr><tr><td>3</td><td>连接被服务端拒绝，原因是服务端不可用。即，网络连接已经建立，但MOTT服务不可用。</td></tr><tr><td>4</td><td>连接被服务端拒绝，原因是用户名或密码无效。</td></tr><tr><td>5</td><td>连接被服务端拒绝，原因是客户端未被授权连接到此服务端。</td></tr></tbody></table></li><li><p>sessionPresent<br>当前会话<br>告诉客户端我这里有没有保存上次会话有些信息你有没有确认</p></li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> 物联网 </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>MQTT搭建客户端</title>
+      <link href="/2022/05/21/%E7%89%A9%E8%81%94%E7%BD%91/MQTT%E6%90%AD%E5%BB%BA%E5%AE%A2%E6%88%B7%E7%AB%AF/"/>
+      <url>/2022/05/21/%E7%89%A9%E8%81%94%E7%BD%91/MQTT%E6%90%AD%E5%BB%BA%E5%AE%A2%E6%88%B7%E7%AB%AF/</url>
+      
+        <content type="html"><![CDATA[<p>首先我们下一个MQTT在我们电脑上搭建客户端的软件<br>点击进入=&gt;<a href="https://softblade.de/en/welcome/">软件官网</a></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 物联网 </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>物联网常见的两种协议</title>
+      <link href="/2022/05/20/%E7%89%A9%E8%81%94%E7%BD%91/%E7%89%A9%E8%81%94%E7%BD%91%E5%B8%B8%E8%A7%81%E5%8D%8F%E8%AE%AE/"/>
+      <url>/2022/05/20/%E7%89%A9%E8%81%94%E7%BD%91/%E7%89%A9%E8%81%94%E7%BD%91%E5%B8%B8%E8%A7%81%E5%8D%8F%E8%AE%AE/</url>
+      
+        <content type="html"><![CDATA[<h2 id="物联网常用的2种协议"><a href="#物联网常用的2种协议" class="headerlink" title="物联网常用的2种协议"></a>物联网常用的2种协议</h2><ul><li>MQTT协议</li><li>CoAP协议</li></ul><h2 id="MQTT"><a href="#MQTT" class="headerlink" title="MQTT"></a>MQTT</h2><p>MQTT是属于应用层的协议他的传输层是TCP协议，那么MQTT就是一个<strong>可靠连接</strong>，并且他是要进行<strong>长连接</strong>，定时的发送一些心跳包，过程我们在连接当中3次握手之后又传输了大量数据</p><h2 id="CoAp"><a href="#CoAp" class="headerlink" title="CoAp"></a>CoAp</h2><p>CoAp的传输是基于UDP的传输，我们也都知道UDP是一种不靠谱的传输，但是！<strong>它把这个这不靠谱的协议在应用层上又变成了可靠传输</strong></p><p>它在资源量上特别小的情况下它也可以使用，只要支持UDP就可以用它 比如说nblt的</p><p>具体是怎么做的呢？</p><p>CoAP协议简述及应用</p><h1 id="CoAP协议帧格式"><a href="#CoAP协议帧格式" class="headerlink" title="CoAP协议帧格式"></a>CoAP协议帧格式</h1><h2 id="CoAP协议报文格式"><a href="#CoAP协议报文格式" class="headerlink" title="CoAP协议报文格式"></a>CoAP协议报文格式</h2><p>​    分为4个部分(4个字节)</p><ul><li><p>Ver T TKL — Code — Message ID</p></li><li><p>Token( if any)</p></li><li><p>Options(if any)</p></li><li><p>0xFF — Payload…(if any)</p></li></ul><h3 id="Ver-T-TKL-—-Code-—-Message-ID"><a href="#Ver-T-TKL-—-Code-—-Message-ID" class="headerlink" title="Ver T TKL — Code — Message ID"></a>Ver T TKL — Code — Message ID</h3><p>第一个部分它将一个字节分成了3个部分</p><ul><li>ver:版本号；T:type ；TKL:Token的长度（TKL会直接影响到第二个部分：“Token( if any)”，它的作用与Message ID一样用来定位问题的让你知道那个数据包发生了问题）</li><li>code：操作码之后再说</li><li>Message ID：按道理来说应该写个循环每一次这个值都要++ 其实在实际的使用中你填随机的值也是可以的 真的出现问题了才找它</li></ul><p><strong>T的取值：</strong></p><table><thead><tr><th>名称</th><th>值</th><th>说明</th></tr></thead><tbody><tr><td>CON</td><td>0</td><td>可确定报文，客户端发送CON报文，服务端必须反馈ACK报文</td></tr><tr><td>NON</td><td>1</td><td>不可确定报文，服务端无需返回ACK报文</td></tr><tr><td>ACK</td><td>2</td><td>ACK对应这上面的可确定报文</td></tr><tr><td>Rest</td><td>3</td><td>复位报文</td></tr></tbody></table><p><strong>Code的取值：</strong></p><table><thead><tr><th>名称</th><th>值</th><th>说明</th></tr></thead><tbody><tr><td>GET</td><td>0.01</td><td>查</td></tr><tr><td><strong>POST</strong></td><td>0.02</td><td>改</td></tr><tr><td>PUT</td><td>0.03</td><td>增</td></tr><tr><td>DELETE</td><td>0.04</td><td>删</td></tr></tbody></table><p>我们最常用的就是POST(改)</p><h4 id="那我们怎么发送post包呢？"><a href="#那我们怎么发送post包呢？" class="headerlink" title="那我们怎么发送post包呢？"></a>那我们怎么发送post包呢？</h4><p>首先Ver T TKL — Code — Message ID:</p><ul><li>Ver=&gt;01</li><li>T=&gt; 00</li><li>TKL=&gt; token在连接的过程是不使用的直接填00000</li><li>code:0000 0010</li></ul><p>那Ver T TKL这个位置就是0x40</p><p>Ver T TKL =&gt; 0x40</p><p>code =&gt; 0x02</p><p>Message ID =&gt; 0x00 0x01</p><h3 id="Options-if-any"><a href="#Options-if-any" class="headerlink" title="Options(if any)"></a>Options(if any)</h3><p>填入相关的配置信息 ，填入的信息需要看手册，从手册上查。</p><p>或者说你去对接谁：比如：我们连接阿里，那我们就去阿里去查如何对接</p><p>我们前面这些东西配置完成后我们要发数据了 假如说是一个温度 我们头帧(Ver T TKL — Code — Message ID;Token)发送完成后需要一个配置(Options)在配置配置(Options)在下面作为分隔符有一个字节添上0xff</p><h1 id="MQTT协议"><a href="#MQTT协议" class="headerlink" title="MQTT协议"></a>MQTT协议</h1><p>MQTT是一个客户端服务端架构的发布/订阅模式的消息传输协议</p><ul><li>易于实现</li><li>数据传输服务质量可控</li><li>占用带宽小</li><li>传输数据内容不可预知</li><li>设备连接状态可知</li></ul><h2 id="MQTT服务端是什么"><a href="#MQTT服务端是什么" class="headerlink" title="MQTT服务端是什么"></a>MQTT服务端是什么</h2><p>MOTT服务端通常是一台服务器。它是MOTT信息传输的枢纽，负责将MOTT客户端发送来的信息传递给MQTT客户端。MQTT服务端还负责管理MQTT客户端。确保客户端之间的通讯顺畅，保证MOTT消息得以正确接收和准确投递</p><h2 id="MQTT客户端是什么"><a href="#MQTT客户端是什么" class="headerlink" title="MQTT客户端是什么"></a>MQTT客户端是什么</h2><p>MQTT客户端可以向服务端发布信息，也可以从服务端收取信息。我们把客户端发送信息的行为成为“发布”信息。而客户端要想从服务端收取信息，则首先要向服务端“订阅”信息。</p><h2 id="MQTT主题"><a href="#MQTT主题" class="headerlink" title="MQTT主题"></a>MQTT主题</h2><p>刚刚我们在讲解MQTT客户端订阅信息时，使用了用户在视频网站订阅电视剧这个例子。在MQTT通讯中，客户端所订阅的肯定不是一部部电视剧，而是一个个“主题”。MQTT服务端在管理MOTT信息通讯时，就是使用“主题”来控制的。</p><p><strong>直白的话就是：我们有一个汽车这个用MQTT协议发送自己的一个汽车实时速度的主题给服务器，服务在转发给我们的手机或者电脑</strong></p><p><strong>主题：我们手机或者电脑发布一个汽车温度降低的主题给MQTT服务器，之后MQTT服务在将主题为汽车温度降低的主题给汽车，之后汽车订阅了主题“汽车温度降低”就开始降低温度</strong></p><p><strong>那这个汽车和手机电脑都是MQTT客户端，而这个服务器就是MQTT服务端</strong></p><h2 id="MQTT-发布-订阅的特性"><a href="#MQTT-发布-订阅的特性" class="headerlink" title="MQTT 发布/订阅的特性"></a>MQTT 发布/订阅的特性</h2><ul><li>相互独立：MQTT客户端是一个个独立的个体。它们无需了解彼此的存在，依然可以实现信息交流。比如以上实例中汽车客户端在发布“汽车速度”信息时，汽车客户端本身可以完全不知道有多少个MOTT客户端订阅了“汽车速度”这一主题。而订阅了“汽车速度”主题的手机和电脑客户端也完全不知道彼此的存在。大家只要订阅了“汽车速度”主题，MQTT服务端就会在每次收到新信息时，将信息发送给订阅了“汽车速度”主题的客户端。</li><li>空间可分离：空间分离相对容易理解，MQTT客户端在通讯必要条件是连接到了同一个MQTT通信网络。这个网络可以是互联网或者局域网。只要客户端联网，无论他们远在天边还是近在眼前，都可以实现彼此之前的通信交流</li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> 物联网 </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>BFC的理解</title>
       <link href="/2020/03/01/css/BFC%E7%90%86%E8%A7%A3/"/>
       <url>/2020/03/01/css/BFC%E7%90%86%E8%A7%A3/</url>
@@ -33,7 +147,7 @@
       <link href="/2019/11/26/js/js%E4%BD%9C%E7%94%A8%E5%9F%9F%E9%93%BE/"/>
       <url>/2019/11/26/js/js%E4%BD%9C%E7%94%A8%E5%9F%9F%E9%93%BE/</url>
       
-        <content type="html"><![CDATA[<h2 id="作用域链"><a href="#作用域链" class="headerlink" title="作用域链"></a>作用域链</h2>]]></content>
+        <content type="html"><![CDATA[<h2 id="作用域"><a href="#作用域" class="headerlink" title="作用域"></a>作用域</h2><p>作用域是在运行时代码中的某些特定部分中变量，函数和对象的可访问性。换句话说，作用域决定了代码区块中变量和其他资源的可见性<br><strong>作用域就是一个独立的地盘，让变量不会外泄、暴露出去。也就是说作用域最大的用处就是隔离变量，不同作用域下同名变量不会有冲突。</strong><br><strong>ES6 之前 JavaScript 没有块级作用域,只有全局作用域和函数作用域。</strong></p><h2 id="什么是作用域链"><a href="#什么是作用域链" class="headerlink" title="什么是作用域链"></a>什么是作用域链</h2><p>如果我们使用一个变量如果没有就向上级找,直到找到全局作用域. 这种这种一层一层的关系，就是<strong>作用域链</strong></p>]]></content>
       
       
       <categories>
