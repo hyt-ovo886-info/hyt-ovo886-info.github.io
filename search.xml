@@ -4,11 +4,87 @@
   
     
     <entry>
+      <title>MQTT遗嘱</title>
+      <link href="/2022/05/29/%E7%89%A9%E8%81%94%E7%BD%91/MQTT%E9%81%97%E5%98%B1/"/>
+      <url>/2022/05/29/%E7%89%A9%E8%81%94%E7%BD%91/MQTT%E9%81%97%E5%98%B1/</url>
+      
+        <content type="html"><![CDATA[<p>当客户端意外断开的话 可以将他的遗嘱发送给其他的设备（订阅它遗嘱的设备）<br>在<a href="/2022/05/21/%E7%89%A9%E8%81%94%E7%BD%91/%E8%BF%9E%E6%8E%A5MQTT%E6%9C%8D%E5%8A%A1%E7%AB%AF/">CONNECT报文</a>中有一部分告诉服务端遗嘱的内容是什么</p><ul><li>lastwillTopic ：遗嘱主题  </li><li>lastwillQos :遗嘱服务质量</li><li>lastwillMessage ：遗嘱内容</li><li>lastwillRetain ：是否保留遗嘱信息</li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> 物联网 </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>心跳机制</title>
+      <link href="/2022/05/28/%E7%89%A9%E8%81%94%E7%BD%91/%E5%BF%83%E8%B7%B3%E6%9C%BA%E5%88%B6/"/>
+      <url>/2022/05/28/%E7%89%A9%E8%81%94%E7%BD%91/%E5%BF%83%E8%B7%B3%E6%9C%BA%E5%88%B6/</url>
+      
+        <content type="html"><![CDATA[<h1 id="心跳机制"><a href="#心跳机制" class="headerlink" title="心跳机制"></a>心跳机制</h1><p>在医院里，医生利用心跳来判断患者是否还有生命体征。对于MQTT服务器来说，它要判断台MQTT客户端是否依然保持连接可以检查这台客户端是不是经常发送消息给服务端。如果经常收到客户端的消息，那么没问题，这个客户端肯定在线</p><p>但是有些客户端并不经常发送消息给服务端。对于这种客户端，服务端可以使用类似心跳检测的方法，来判断客户端是否在线</p><p>不过客户端设备没有心脏，自然不会跳动。可是我们可以为它们配上一个类似心脏的机制，这个心脏机制就是让客户端在没有向服务端发送信息时，可以定时向服务端发送一条消息。这条用于心跳机制的消息也被称作心跳请求 (PINGREQ)。心跳请求的作用正是用于告知服务端，当前客户端依然在线。服务端在收到客户端的心跳请求后，会回复一条消息。这条回复消息被称作心跳响应(PINGRESP)</p><p>由丁心跳请求是客户端定时发送的，一旦服务端发现客户端停止发送请求信息，那么服务端就会知道，这台客户端已经断开了连接。</p><p><a href="/2022/05/21/%E7%89%A9%E8%81%94%E7%BD%91/%E8%BF%9E%E6%8E%A5MQTT%E6%9C%8D%E5%8A%A1%E7%AB%AF/">CONNECT报文中可以设置心跳</a></p><p>客户端在心跳间隔时间内，如果有消息发布，那就直接发布消息而不发布心跳请求，但是在心跳间隔时间内，客户端没有消息发布，那么它就会发布一条心跳请求给服务端</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 物联网 </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>保留消息</title>
+      <link href="/2022/05/26/%E7%89%A9%E8%81%94%E7%BD%91/%E4%BF%9D%E7%95%99%E6%B6%88%E6%81%AF/"/>
+      <url>/2022/05/26/%E7%89%A9%E8%81%94%E7%BD%91/%E4%BF%9D%E7%95%99%E6%B6%88%E6%81%AF/</url>
+      
+        <content type="html"><![CDATA[<h1 id="保留消息的作用"><a href="#保留消息的作用" class="headerlink" title="保留消息的作用"></a>保留消息的作用</h1><p>要讲明“保留消息”这一概念，我们先看一个场景。假设我们正在利用MQTT协议开发一套智能家居物联网系统。在该系统中有一台专门用于检测和发布室温信息的MOTT客户端，它每到整点时就会测量当前室温并且向MQTT服务端发布室温测量结果。</p><p>保留的消息只会保留一条</p><p>如何删除-直接发送一个空的保留消息就会删除</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 物联网 </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>js连接mqtt</title>
+      <link href="/2022/05/26/%E7%89%A9%E8%81%94%E7%BD%91/js%E8%BF%9E%E6%8E%A5mqtt/"/>
+      <url>/2022/05/26/%E7%89%A9%E8%81%94%E7%BD%91/js%E8%BF%9E%E6%8E%A5mqtt/</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      <categories>
+          
+          <category> 物联网 </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>QoS服务等级</title>
       <link href="/2022/05/24/%E7%89%A9%E8%81%94%E7%BD%91/Qos%E6%9C%8D%E5%8A%A1%E7%AD%89%E7%BA%A7/"/>
       <url>/2022/05/24/%E7%89%A9%E8%81%94%E7%BD%91/Qos%E6%9C%8D%E5%8A%A1%E7%AD%89%E7%BA%A7/</url>
       
-        <content type="html"><![CDATA[<h1 id="什么是服务质量"><a href="#什么是服务质量" class="headerlink" title="什么是服务质量"></a>什么是服务质量</h1><p>一个物联网系统中有些信息非常重要，我们需要确保这类重要信息可以准确无误的发送和接收，而有些信息则相对不那么重要，这类信息如果在传输中丢失也不会影响到整个系统运行<br><strong>MQTT协议有三种服务质量级别：</strong></p><ul><li>QoS = 0 最多发一次</li><li>Qos = 1 最少发一次</li><li>QoS = 2 保证收到一次<br>以上三种不同的服务质量级别意味着不同的MQTT传输流程。对于较为重要的MQTT消息，我们通常会选择QoS&gt;o的服务级别 (即QOS 为1或2)。</li></ul><h2 id="QoS-0-最多发一次"><a href="#QoS-0-最多发一次" class="headerlink" title="QoS = 0 最多发一次"></a>QoS = 0 最多发一次</h2><p>o是服务质量QoS的最低级别。当QoS为o级时，MQIT协议并不保证所有信息都能得以传输也就是说，QoS=o的情况下，MQTT服务端和客户端不会对消息传输是否成功进行确认和检查。消息能否成功传输全石网络环境是否稳定</p><h2 id="Qos-1-最少发一次"><a href="#Qos-1-最少发一次" class="headerlink" title="Qos = 1 最少发一次"></a>Qos = 1 最少发一次</h2><p>当QoS级别为1时，发送端在消息发送完成后，会检查接收端是否已经成功接收到了消息<br>什么意思呢：<br>  当我们的发送端发送一条信息的时，它会要求服务端给一个确认</p><h2 id="QoS-2-保证收到一次"><a href="#QoS-2-保证收到一次" class="headerlink" title="QoS = 2 保证收到一次"></a>QoS = 2 保证收到一次</h2><p>MQTT服务质量最高级是2级，即QoS = 2。当MQTT服务质量为2级时，MQTT协议可以确保接收端只接收一次消息。<br>QoS=2的收发相对更加复杂。发送端需要接收端进行两次消息确认。因此，2级MOTT服务质量是最安全的服务级别，也是最慢的服务级别<br>类似与tcp：它发送到服务端后服务端返回一个确定 它在发送一条信息询问服务端你确定收到了码 服务端回在返回一个确定信息 </p>]]></content>
+        <content type="html"><![CDATA[<h1 id="什么是服务质量"><a href="#什么是服务质量" class="headerlink" title="什么是服务质量"></a>什么是服务质量</h1><p>一个物联网系统中有些信息非常重要，我们需要确保这类重要信息可以准确无误的发送和接收，而有些信息则相对不那么重要，这类信息如果在传输中丢失也不会影响到整个系统运行<br><strong>MQTT协议有三种服务质量级别：</strong></p><ul><li>QoS = 0 最多发一次</li><li>Qos = 1 最少发一次</li><li>QoS = 2 保证收到一次<br>以上三种不同的服务质量级别意味着不同的MQTT传输流程。对于较为重要的MQTT消息，我们通常会选择QoS&gt;o的服务级别 (即QOS 为1或2)。</li></ul><h2 id="QoS-0-最多发一次"><a href="#QoS-0-最多发一次" class="headerlink" title="QoS = 0 最多发一次"></a>QoS = 0 最多发一次</h2><p>o是服务质量QoS的最低级别。当QoS为o级时，MQIT协议并不保证所有信息都能得以传输也就是说，QoS=o的情况下，MQTT服务端和客户端不会对消息传输是否成功进行确认和检查。消息能否成功传输全石网络环境是否稳定</p><h2 id="Qos-1-最少发一次"><a href="#Qos-1-最少发一次" class="headerlink" title="Qos = 1 最少发一次"></a>Qos = 1 最少发一次</h2><p>当QoS级别为1时，发送端在消息发送完成后，会检查接收端是否已经成功接收到了消息<br>什么意思呢：<br>  当我们的发送端发送一条信息的时，它会要求服务端给一个确认</p><h2 id="QoS-2-保证收到一次"><a href="#QoS-2-保证收到一次" class="headerlink" title="QoS = 2 保证收到一次"></a>QoS = 2 保证收到一次</h2><p>MQTT服务质量最高级是2级，即QoS = 2。当MQTT服务质量为2级时，MQTT协议可以确保接收端只接收一次消息。<br>QoS=2的收发相对更加复杂。发送端需要接收端进行两次消息确认。因此，2级MOTT服务质量是最安全的服务级别，也是最慢的服务级别<br>类似与tcp：它发送到服务端后服务端返回一个确定 它在发送一条信息询问服务端你确定收到了码 服务端回在返回一个确定信息 </p><h2 id="QoS-1通讯时的注意事项"><a href="#QoS-1通讯时的注意事项" class="headerlink" title="QoS=1通讯时的注意事项"></a>QoS=1通讯时的注意事项</h2><p>如想在MQTT通讯中实现服务质量等级为1级(QOS=1) ，我们要分别对消息的发布端课接收端进行相应的设置。以下列表中的内容是具体需要采取的措施。</p><ul><li>接收端连接服务端时cleanSession设置为false</li><li>接收端订阅主题时QOS=1</li><li>发布端发布消息时QoS=1</li></ul><h2 id="RoS-2通讯时的注意事项"><a href="#RoS-2通讯时的注意事项" class="headerlink" title="RoS=2通讯时的注意事项"></a>RoS=2通讯时的注意事项</h2><p>如想在MQTT通讯中实现服务质量等级为2级(QoS=2)，我们要分别对消息的发布端和接收端进行相应的设置。以下列表中的内容是具体需要采取的措施。</p><ul><li>接收端连接服务端时cleanSession设置为false</li><li>接收端订阅主题时QoS=2</li><li>发布端发布消息时QoS=2</li></ul>]]></content>
       
       
       <categories>
@@ -65,7 +141,7 @@
       <link href="/2022/05/21/%E7%89%A9%E8%81%94%E7%BD%91/%E8%BF%9E%E6%8E%A5MQTT%E6%9C%8D%E5%8A%A1%E7%AB%AF/"/>
       <url>/2022/05/21/%E7%89%A9%E8%81%94%E7%BD%91/%E8%BF%9E%E6%8E%A5MQTT%E6%9C%8D%E5%8A%A1%E7%AB%AF/</url>
       
-        <content type="html"><![CDATA[<p>MQTT客户端之间要想实现通讯，必须要通过MQTT服务端。因此MQTT客户端无论是发布消息还是订阅消息，首先都要连接MQTT服务端。</p><h2 id="MQTT客户端连接服务器一共有2步"><a href="#MQTT客户端连接服务器一共有2步" class="headerlink" title="MQTT客户端连接服务器一共有2步"></a>MQTT客户端连接服务器一共有2步</h2><ul><li>首先MQTT客户端将会向服务端发送连接请求。该请求实际上是一个包含有连接请求信息的数据包。这个数据包的官方名称为CONNECT</li><li>MQTT服务端接受到客户端的请求连接后，会向客户端发送连接确认，这个确认也是一个数据包，这个包名也是CONNEXCT<h2 id="CONNECT"><a href="#CONNECT" class="headerlink" title="CONNECT"></a>CONNECT</h2>MQIT客户端要想连接服务端，首先要向服务端发送CONNECT报文。如果此CONNECT报文的格式或内容不符合MQTT规范，则服务器会拒绝客户端的连接请求<br>  <strong>CONNECT报文所包含内容：</strong><table><thead><tr><th>名称</th><th>内容</th></tr></thead><tbody><tr><td>clientId</td><td>字符串类型 必须是唯一值 用来定位客户端</td></tr><tr><td>cleanSession</td><td>布尔类型 向重要的服务端发送信息 需要服务端确认 服务端端不会保存任何信息</td></tr><tr><td>username 可选</td><td>字符串类型</td></tr><tr><td>password 可选</td><td>字符串类型</td></tr><tr><td>lastwillTopic 可选</td><td>字符串类型</td></tr><tr><td>lastwillQos 可选</td><td>数值类型</td></tr><tr><td>lastwillMessage 可选</td><td>字符串类型</td></tr><tr><td>lastwillRetain 可选</td><td>布尔类型</td></tr><tr><td>keepAlive</td><td>数值类型 心跳时间间隔</td></tr></tbody></table></li></ul><p>服务端返回的连接确认的CONNACK确认包<br>    <strong>CONNACK报文所包含内容：</strong></p><table><thead><tr><th>名称</th><th>内容</th></tr></thead><tbody><tr><td>sessionPresent</td><td>布尔类型</td></tr><tr><td>returnCode</td><td>数值类型 连接返回码</td></tr></tbody></table><ul><li><p>returnCode<br>  连接返回码：</p><table><thead><tr><th>返回码</th><th>描述</th></tr></thead><tbody><tr><td>0</td><td>成功</td></tr><tr><td>1</td><td>连接被服务端拒绝，原因是不支持客户端的MQTT协议版本</td></tr><tr><td>2</td><td>连接被服务端拒绝，原因是不支持客户端标识符的编码。可能造成此原因的是客户端标识符编码是UTF-8，但是服务端不允许使用此编码。</td></tr><tr><td>3</td><td>连接被服务端拒绝，原因是服务端不可用。即，网络连接已经建立，但MOTT服务不可用。</td></tr><tr><td>4</td><td>连接被服务端拒绝，原因是用户名或密码无效。</td></tr><tr><td>5</td><td>连接被服务端拒绝，原因是客户端未被授权连接到此服务端。</td></tr></tbody></table></li><li><p>sessionPresent<br>当前会话<br>告诉客户端我这里有没有保存上次会话有些信息你有没有确认</p></li></ul>]]></content>
+        <content type="html"><![CDATA[<p>MQTT客户端之间要想实现通讯，必须要通过MQTT服务端。因此MQTT客户端无论是发布消息还是订阅消息，首先都要连接MQTT服务端。</p><h2 id="MQTT客户端连接服务器一共有2步"><a href="#MQTT客户端连接服务器一共有2步" class="headerlink" title="MQTT客户端连接服务器一共有2步"></a>MQTT客户端连接服务器一共有2步</h2><ul><li>首先MQTT客户端将会向服务端发送连接请求。该请求实际上是一个包含有连接请求信息的数据包。这个数据包的官方名称为CONNECT</li><li>MQTT服务端接受到客户端的请求连接后，会向客户端发送连接确认，这个确认也是一个数据包，这个包名也是CONNEXCT<h2 id="CONNECT"><a href="#CONNECT" class="headerlink" title="CONNECT"></a>CONNECT</h2>MQIT客户端要想连接服务端，首先要向服务端发送CONNECT报文。如果此CONNECT报文的格式或内容不符合MQTT规范，则服务器会拒绝客户端的连接请求<br>  <strong>CONNECT报文所包含内容：</strong><table><thead><tr><th>名称</th><th>内容</th></tr></thead><tbody><tr><td>clientId</td><td>字符串类型 必须是唯一值 用来定位客户端</td></tr><tr><td>cleanSession</td><td>布尔类型 向重要的服务端发送信息 需要服务端确认 服务端端不会保存任何信息</td></tr><tr><td>username 可选</td><td>字符串类型</td></tr><tr><td>password 可选</td><td>字符串类型</td></tr><tr><td>lastwillTopic 可选</td><td>字符串类型  遗嘱主题</td></tr><tr><td>lastwillQos 可选</td><td>数值类型    遗嘱服务质量</td></tr><tr><td>lastwillMessage 可选</td><td>字符串类型    遗嘱内容</td></tr><tr><td>lastwillRetain 可选</td><td>布尔类型    是否保留遗嘱信息</td></tr><tr><td>keepAlive</td><td>数值类型 心跳时间间隔</td></tr></tbody></table></li></ul><p>服务端返回的连接确认的CONNACK确认包<br>    <strong>CONNACK报文所包含内容：</strong></p><table><thead><tr><th>名称</th><th>内容</th></tr></thead><tbody><tr><td>sessionPresent</td><td>布尔类型</td></tr><tr><td>returnCode</td><td>数值类型 连接返回码</td></tr></tbody></table><ul><li><p>returnCode<br>  连接返回码：</p><table><thead><tr><th>返回码</th><th>描述</th></tr></thead><tbody><tr><td>0</td><td>成功</td></tr><tr><td>1</td><td>连接被服务端拒绝，原因是不支持客户端的MQTT协议版本</td></tr><tr><td>2</td><td>连接被服务端拒绝，原因是不支持客户端标识符的编码。可能造成此原因的是客户端标识符编码是UTF-8，但是服务端不允许使用此编码。</td></tr><tr><td>3</td><td>连接被服务端拒绝，原因是服务端不可用。即，网络连接已经建立，但MOTT服务不可用。</td></tr><tr><td>4</td><td>连接被服务端拒绝，原因是用户名或密码无效。</td></tr><tr><td>5</td><td>连接被服务端拒绝，原因是客户端未被授权连接到此服务端。</td></tr></tbody></table></li><li><p>sessionPresent<br>当前会话<br>告诉客户端我这里有没有保存上次会话有些信息你有没有确认</p></li></ul>]]></content>
       
       
       <categories>
