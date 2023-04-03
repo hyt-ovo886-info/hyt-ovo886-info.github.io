@@ -213,6 +213,101 @@
     
     
     <entry>
+      <title>vuex</title>
+      <link href="/2020/03/12/vue/vuex/"/>
+      <url>/2020/03/12/vue/vuex/</url>
+      
+        <content type="html"><![CDATA[<h2 id="vuex是什么"><a href="#vuex是什么" class="headerlink" title="vuex是什么"></a>vuex是什么</h2><p>Vuex 是一个专为 Vue.js 应用程序开发的<strong>状态管理模式</strong>， 采用<strong>集中式存储</strong>管理应用的所有组件的状态，解决多组件数据通信<br>特点：</p><ul><li>vue官方搭配</li><li><strong>集中式</strong>管理数据状态方案</li><li>数据变化是可预测的 (<strong>响应式</strong>)</li></ul><h2 id="使用Vuex的好处"><a href="#使用Vuex的好处" class="headerlink" title="使用Vuex的好处"></a>使用Vuex的好处</h2><ul><li>数据的存取一步到位，不需要层层传递</li><li>数据的流动非常清晰</li><li>存储在Vuex中的数据都是响应式的</li></ul><h2 id="vuex-五个概念"><a href="#vuex-五个概念" class="headerlink" title="vuex 五个概念"></a>vuex 五个概念</h2><ul><li>state： 统一定义公共数据（类似于data）</li><li>mutations ： 使用它来修改数据(类似于methods)</li><li>getters： 类似于computed(和计算属性一样)</li><li>actions： 发起异步请求</li><li>modules： 模块拆分</li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> vue </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>vue组件传值</title>
+      <link href="/2020/03/11/vue/vue%E7%BB%84%E4%BB%B6%E9%80%9A%E4%BF%A1/"/>
+      <url>/2020/03/11/vue/vue%E7%BB%84%E4%BB%B6%E9%80%9A%E4%BF%A1/</url>
+      
+        <content type="html"><![CDATA[<h2 id="vue组件传值"><a href="#vue组件传值" class="headerlink" title="vue组件传值"></a>vue组件传值</h2><ul><li>路由传参</li><li>父子组件传值</li><li>兄弟组件传值</li><li>provide/inject</li><li>vuex</li></ul><h2 id="路由传参"><a href="#路由传参" class="headerlink" title="路由传参"></a>路由传参</h2><p>定义路由时加上参数props: true，在定义路由路径时要留有参数占位符:<br>name 用法:to=”‘路径/‘＋value”<br>在跳转到的页面加上参数props:[‘name’]<br>在跳转到的页面就获取到了name 用法: js中直接this. name；html中直接插值</p><h2 id="父子组件传值"><a href="#父子组件传值" class="headerlink" title="父子组件传值"></a>父子组件传值</h2><p>通过props传值</p><ul><li>父传子：给子组件绑定自定义属性，子组件通过porps接受</li><li>子传父：父组件给子组件绑定自定义事件，子组件通过props接收这个事件，通过这个事件将数据传递给父组件</li></ul><h2 id="兄弟组件传值（全局事件总线）"><a href="#兄弟组件传值（全局事件总线）" class="headerlink" title="兄弟组件传值（全局事件总线）"></a>兄弟组件传值（全局事件总线）</h2><p>在Vue原型对象中添加一个$bus赋值为当前应用的vm(Vue实例)</p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">Vue</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">$bus</span>=<span class="variable language_">this</span></span><br></pre></td></tr></table></figure><p>使用$bus的$emit提交事件传值</p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">this</span>.<span class="property">$bus</span>.$emit(<span class="string">&#x27;事件名&#x27;</span>,值)</span><br></pre></td></tr></table></figure><p>$bus绑定自定义事件，事件的回调留在A组件的自身，可以在mounted钩子中接受数据</p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">this</span>.<span class="property">$bus</span>.<span class="title function_">on</span>(<span class="string">&quot;事件名&quot;</span>,<span class="function">(<span class="params">data</span>)=&gt;</span>&#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(data)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure><p>最好在接收数据的组件中的beforeDestroy钩子中，用$bus的$off Api去解绑当前组件所用的事件</p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">this</span>.<span class="property">$bus</span>.$off(<span class="string">&quot;事件名&quot;</span>)</span><br></pre></td></tr></table></figure><h2 id="provide-inject"><a href="#provide-inject" class="headerlink" title="provide/inject"></a>provide/inject</h2><p>先祖组件</p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">provide</span>:&#123;</span><br><span class="line">  <span class="attr">name</span>:<span class="string">&quot;小红&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>后代组件接收</p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">inject</span>:[<span class="string">&quot;name&quot;</span>]</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> vue </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>vue中组件和插件的区别</title>
+      <link href="/2020/03/08/vue/vue%E4%B8%AD%E7%BB%84%E4%BB%B6%E5%92%8C%E6%8F%92%E4%BB%B6%E7%9A%84%E5%8C%BA%E5%88%AB/"/>
+      <url>/2020/03/08/vue/vue%E4%B8%AD%E7%BB%84%E4%BB%B6%E5%92%8C%E6%8F%92%E4%BB%B6%E7%9A%84%E5%8C%BA%E5%88%AB/</url>
+      
+        <content type="html"><![CDATA[<h2 id="Vue中组件和插件的区别"><a href="#Vue中组件和插件的区别" class="headerlink" title="Vue中组件和插件的区别"></a>Vue中组件和插件的区别</h2><h3 id="组件是什么"><a href="#组件是什么" class="headerlink" title="组件是什么"></a>组件是什么</h3><p>组件就是把图形、非图形的各种逻辑均抽象为一个统一的概念（组件）来实现开发的模式，在Vue中每一个.vue文件都可以视为一个组件<br>组件的优势：</p><ul><li>降低整个系统的耦合度，在保持接口不变的情况下，我们可以替换不同的组件快速完成需求，例如输入框，可以替换为日历、时间、范围等组件作具体的实现</li><li>调试方便，由于整个系统是通过组件组合起来的，在出现问题的时候，可以用排除法直接移除组件，或者根据报错的组件快速定位问题，之所以能够快速定位，是因为每个组件之间低耦合，职责单一，所以逻辑会比分析整个系统要简单</li><li>提高可维护性，由于每个组件的职责单一，并且组件在系统中是被复用的，所以对代码进行优化可获得系统的整体升级</li></ul><h3 id="插件是什么"><a href="#插件是什么" class="headerlink" title="插件是什么"></a>插件是什么</h3><p>插件通常用来为 Vue 添加全局功能。插件的功能范围没有严格的限制——一般有下面几种：</p><ul><li>添加全局方法或者属性。如: vue-custom-element</li><li>添加全局资源：指令/过滤器/过渡等。如 vue-touch</li><li>通过全局混入来添加一些组件选项。如vue-router</li><li>添加 Vue 实例方法，通过把它们添加到 Vue.prototype 上实现。</li><li>一个库，提供自己的 API，同时提供上面提到的一个或多个功能 如vue-router</li></ul><h2 id="两者的区别"><a href="#两者的区别" class="headerlink" title="两者的区别"></a>两者的区别</h2><ul><li>编写形式</li><li>注册形式</li><li>使用场景</li></ul><h3 id="编写形式"><a href="#编写形式" class="headerlink" title="编写形式"></a>编写形式</h3><h4 id="编写组件"><a href="#编写组件" class="headerlink" title="编写组件"></a>编写组件</h4><p>编写一个组件，可以有很多方式，我们最常见的就是vue单文件的这种格式，每一个.vue文件我们都可以看成是一个组件<br>vue文件标准格式</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">export default&#123; </span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line">&lt;style&gt;</span><br><span class="line">&lt;/style&gt;</span><br></pre></td></tr></table></figure><p>我们还可以通过template属性来编写一个组件，如果组件内容多，我们可以在外部定义template组件内容，如果组件内容并不多，我们可直接写在template属性上</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;template id=&quot;testComponent&quot;&gt;     // 组件显示的内容</span><br><span class="line">    &lt;div&gt;component!&lt;/div&gt;   </span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">Vue.component(&#x27;componentA&#x27;,&#123; </span><br><span class="line">    template: &#x27;#testComponent&#x27;  </span><br><span class="line">    template: `&lt;div&gt;component&lt;/div&gt;`  // 组件内容少可以通过这种形式</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure><h4 id="编写插件"><a href="#编写插件" class="headerlink" title="编写插件"></a>编写插件</h4><p>vue插件的实现应该暴露一个 install 方法。这个方法的第一个参数是 Vue 构造器，第二个参数是一个可选的选项对象</p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">MyPlugin</span>.<span class="property">install</span> = <span class="keyword">function</span> (<span class="params">Vue, options</span>) &#123;</span><br><span class="line">  <span class="comment">// 1. 添加全局方法或 property</span></span><br><span class="line">  <span class="title class_">Vue</span>.<span class="property">myGlobalMethod</span> = <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">    <span class="comment">// 逻辑...</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 2. 添加全局资源</span></span><br><span class="line">  <span class="title class_">Vue</span>.<span class="title function_">directive</span>(<span class="string">&#x27;my-directive&#x27;</span>, &#123;</span><br><span class="line">    bind (el, binding, vnode, oldVnode) &#123;</span><br><span class="line">      <span class="comment">// 逻辑...</span></span><br><span class="line">    &#125;</span><br><span class="line">    ...</span><br><span class="line">  &#125;)</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 3. 注入组件选项</span></span><br><span class="line">  <span class="title class_">Vue</span>.<span class="title function_">mixin</span>(&#123;</span><br><span class="line">    <span class="attr">created</span>: <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">      <span class="comment">// 逻辑...</span></span><br><span class="line">    &#125;</span><br><span class="line">    ...</span><br><span class="line">  &#125;)</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 4. 添加实例方法</span></span><br><span class="line">  <span class="title class_">Vue</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">$myMethod</span> = <span class="keyword">function</span> (<span class="params">methodOptions</span>) &#123;</span><br><span class="line">    <span class="comment">// 逻辑...</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h3 id="注册形式"><a href="#注册形式" class="headerlink" title="注册形式"></a>注册形式</h3><h4 id="组件注册"><a href="#组件注册" class="headerlink" title="组件注册"></a>组件注册</h4><p>vue组件注册主要分为全局注册与局部注册<br>全局注册通过Vue.component方法，第一个参数为组件的名称，第二个参数为传入的配置项</p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">Vue</span>.<span class="title function_">component</span>(<span class="string">&#x27;my-component-name&#x27;</span>, &#123; <span class="comment">/* ... */</span> &#125;)</span><br></pre></td></tr></table></figure><p>局部注册只需在用到的地方通过components属性注册一个组件</p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> component1 = &#123;&#125; <span class="comment">// 定义一个组件</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line"><span class="attr">components</span>:&#123;</span><br><span class="line">component1   <span class="comment">// 局部注册</span></span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h4 id="插件注册"><a href="#插件注册" class="headerlink" title="插件注册"></a>插件注册</h4><p>插件的注册通过Vue.use()的方式进行注册（安装），第一个参数为插件的名字，第二个参数是可选择的配置项</p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">Vue</span>.<span class="title function_">use</span>(插件名字,&#123; <span class="comment">/* ... */</span>&#125;)</span><br></pre></td></tr></table></figure><p>注意的是：</p><p>注册插件的时候，需要在调用 new Vue() 启动应用之前完成</p><p>Vue.use会自动阻止多次注册相同插件，只会注册一次</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> vue </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>为什么data属性是一个函数而不是一个对象</title>
+      <link href="/2020/03/07/vue/%E4%B8%BA%E4%BB%80%E4%B9%88data%E5%B1%9E%E6%80%A7%E6%98%AF%E4%B8%80%E4%B8%AA%E5%87%BD%E6%95%B0%E8%80%8C%E4%B8%8D%E6%98%AF%E4%B8%80%E4%B8%AA%E5%AF%B9%E8%B1%A1/"/>
+      <url>/2020/03/07/vue/%E4%B8%BA%E4%BB%80%E4%B9%88data%E5%B1%9E%E6%80%A7%E6%98%AF%E4%B8%80%E4%B8%AA%E5%87%BD%E6%95%B0%E8%80%8C%E4%B8%8D%E6%98%AF%E4%B8%80%E4%B8%AA%E5%AF%B9%E8%B1%A1/</url>
+      
+        <content type="html"><![CDATA[<h2 id="实例和组件定义data的区别"><a href="#实例和组件定义data的区别" class="headerlink" title="实例和组件定义data的区别"></a>实例和组件定义data的区别</h2><p>vue实例的时候定义data属性既可以是一个对象，也可以是一个函数</p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> app = <span class="keyword">new</span> <span class="title class_">Vue</span>(&#123;</span><br><span class="line">    <span class="attr">el</span>:<span class="string">&quot;#app&quot;</span>,</span><br><span class="line">    <span class="comment">// 对象格式</span></span><br><span class="line">    <span class="attr">data</span>:&#123;</span><br><span class="line">        <span class="attr">name</span>:<span class="string">&quot;小红&quot;</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="comment">// 函数格式</span></span><br><span class="line">    <span class="title function_">data</span>(<span class="params"></span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> &#123;</span><br><span class="line">            <span class="attr">name</span>:<span class="string">&quot;小红&quot;</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure><p>组件中定义data属性，只能是一个函数<br>如果为组件data直接定义为一个对象</p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">Vue</span>.<span class="title function_">component</span>(<span class="string">&#x27;component1&#x27;</span>,&#123;</span><br><span class="line">    <span class="attr">template</span>:<span class="string">`&lt;div&gt;组件&lt;/div&gt;`</span>,</span><br><span class="line">    <span class="attr">data</span>:&#123;</span><br><span class="line">        <span class="attr">foo</span>:<span class="string">&quot;foo&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure><p>则会得到警告信息<br><code>[Vue warn]: The &quot;data&quot; option should be a function that returns aper-instance value in component definitions.</code><br>警告说明：返回的data应该是一个函数在每一个组件实例中</p><ul><li>根实例对象data可以是对象也可以是函数（根实例是单例），不会产生数据污染情况</li><li>组件实例对象data必须为函数，目的是为了防止多个组件实例对象之间共用一个data，产生数据污染。采用函数的形式，initData时会将其作为工厂函数都会返回全新data对象</li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> vue </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>v-show和v-if有什么区别</title>
+      <link href="/2020/03/06/vue/v-show%E5%92%8Cv-if%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB/"/>
+      <url>/2020/03/06/vue/v-show%E5%92%8Cv-if%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB/</url>
+      
+        <content type="html"><![CDATA[<h2 id="v-show与v-if的共同点"><a href="#v-show与v-if的共同点" class="headerlink" title="v-show与v-if的共同点"></a>v-show与v-if的共同点</h2><p>我们都知道在 vue 中 v-show 与 v-if 的作用效果是相同的(不含v-else)，都能控制元素在页面是否显示</p><ul><li>当表达式为true的时候，都会占据页面的位置</li><li>当表达式都为false时，都不会占据页面位置<h2 id="v-show与v-if的区别"><a href="#v-show与v-if的区别" class="headerlink" title="v-show与v-if的区别"></a>v-show与v-if的区别</h2></li><li>控制手段不同</li><li>编译过程不同</li><li>编译条件不同</li></ul><p>控制手段：v-show隐藏则是为该元素添加css–display:none，dom元素依旧还在。v-if显示隐藏是将dom元素整个添加或删除</p><p>编译过程：v-if切换有一个局部编译/卸载的过程，切换过程中合适地销毁和重建内部的事件监听和子组件；v-show只是简单的基于css切换</p><p>编译条件：v-if是真正的条件渲染，它会确保在切换过程中条件块内的事件监听器和子组件适当地被销毁和重建。只有渲染条件为假时，并不做操作，直到为真才渲染</p><ul><li>v-show 由false变为true的时候不会触发组件的生命周期</li><li>v-if由false变为true的时候，触发组件的beforeCreate、create、beforeMount、mounted钩子，由true变为false的时候触发组件的beforeDestory、destoryed方法<br>性能消耗：v-if有更高的切换消耗；v-show有更高的初始渲染消耗</li></ul><h2 id="v-show与v-if原理分析"><a href="#v-show与v-if原理分析" class="headerlink" title="v-show与v-if原理分析"></a>v-show与v-if原理分析</h2><ul><li>将模板template转为ast结构的JS对象</li><li>用ast得到的JS对象拼装render和staticRenderFns函数</li><li>render和staticRenderFns函数被调用后生成虚拟VNODE节点，该节点包含创建DOM节点所需信息</li><li>vm.patch函数通过虚拟DOM算法利用VNODE节点创建真实DOM节点</li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> vue </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>BFC的理解</title>
       <link href="/2020/03/01/css/BFC%E7%90%86%E8%A7%A3/"/>
       <url>/2020/03/01/css/BFC%E7%90%86%E8%A7%A3/</url>
@@ -232,6 +327,25 @@
             <tag> 概念 </tag>
             
         </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>vue</title>
+      <link href="/2020/03/01/vue/vue/"/>
+      <url>/2020/03/01/vue/vue/</url>
+      
+        <content type="html"><![CDATA[<h2 id="Vue"><a href="#Vue" class="headerlink" title="Vue"></a>Vue</h2><p>Vue.js（简称为Vue）是一个用于创建用户界面的开源JavaScript框架，也是一个创建单页应用的Web应用框架</p><h2 id="Vue核心特性"><a href="#Vue核心特性" class="headerlink" title="Vue核心特性"></a>Vue核心特性</h2><h3 id="数据驱动（MVVM"><a href="#数据驱动（MVVM" class="headerlink" title="数据驱动（MVVM)"></a>数据驱动（MVVM)</h3><p><strong>MVVM表示的是 Model-View-ViewModel</strong></p><ul><li>Model：模型层，负责处理业务逻辑以及和服务器端进行交互</li><li>View：视图层：负责将数据模型转化为UI展示出来，可以简单的理解为HTML页面</li><li>ViewModel：视图模型层，用来连接Model和View，是Model和View之间的通信桥梁</li></ul><h3 id="组件化"><a href="#组件化" class="headerlink" title="组件化"></a>组件化</h3><p>什么是组件化一句话来说就是把图形、非图形的各种逻辑均抽象为一个统一的概念（组件）来实现开发的模式，在Vue中每一个.vue文件都可以视为一个组件</p><ul><li>降低整个系统的耦合度，在保持接口不变的情况下，我们可以替换不同的组件快速完成需求，例如输入框，可以替换为日历、时间、范围等组件作具体的实现</li><li>调试方便，由于整个系统是通过组件组合起来的，在出现问题的时候，可以用排除法直接移除组件，或者根据报错的组件快速定位问题，之所以能够快速定位，是因为每个组件之间低耦合，职责单一，所以逻辑会比分析整个系统要简单</li><li>提高可维护性，由于每个组件的职责单一，并且组件在系统中是被复用的，所以对代码进行优化可获得系统的整体升级</li></ul><h2 id="常见的指令"><a href="#常见的指令" class="headerlink" title="常见的指令"></a>常见的指令</h2><ul><li>条件渲染指令 v-if</li><li>列表渲染指令v-for</li><li>属性绑定指令v-bind</li><li>事件绑定指令v-on</li><li>双向数据绑定指令v-model</li></ul><h2 id="Vue和React对比"><a href="#Vue和React对比" class="headerlink" title="Vue和React对比"></a>Vue和React对比</h2><h3 id="相同点"><a href="#相同点" class="headerlink" title="相同点"></a>相同点</h3><ul><li>都有组件化思想</li><li>都支持服务器端渲染</li><li>都有Virtual DOM（虚拟dom）</li><li>数据驱动视图</li><li>都有支持native的方案：Vue的weex、React的React native</li><li>都有自己的构建工具：Vue的vue-cli、React的Create React App</li></ul><h3 id="区别"><a href="#区别" class="headerlink" title="区别"></a>区别</h3><ul><li>数据流向的不同。react从诞生开始就推崇单向数据流，而Vue是双向数据流</li><li>数据变化的实现原理不同。react使用的是不可变数据，而Vue使用的是可变的数据</li><li>组件化通信的不同。react中我们通过使用回调函数来进行通信的，而Vue中子组件向父组件传递消息有两种方式：事件和回调函数</li><li>diff算法不同。react主要使用diff队列保存需要更新哪些DOM，得到patch树，再统一操作批量更新DOM。Vue 使用双向指针，边对比，边更新DOM</li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> vue </category>
+          
+      </categories>
+      
       
     </entry>
     
@@ -389,6 +503,69 @@
     
     
     <entry>
+      <title>虚拟DOM和真实DOM的区别</title>
+      <link href="/2019/10/23/web/%E8%99%9A%E6%8B%9FDOM%E5%92%8C%E7%9C%9F%E5%AE%9EDOM%E7%9A%84%E5%8C%BA%E5%88%AB/"/>
+      <url>/2019/10/23/web/%E8%99%9A%E6%8B%9FDOM%E5%92%8C%E7%9C%9F%E5%AE%9EDOM%E7%9A%84%E5%8C%BA%E5%88%AB/</url>
+      
+        <content type="html"><![CDATA[<ul><li>虚拟dom不会进行排版与重绘操作，虚拟dom是把js对象转为真实dom</li><li>真实dom频繁回流与重绘效率非常低</li><li>虚拟dom可以跨平台操作而真实dom是与浏览器绑定的</li><li>虚拟dom进行频繁修改，之后一次性比较再修改真实dom中需要修改的部分，最后真实dom进行排版重绘，从而减少dom节点的排版与重绘的损耗</li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> web </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>虚拟dom</title>
+      <link href="/2019/10/21/web/%E8%99%9A%E6%8B%9Fdom/"/>
+      <url>/2019/10/21/web/%E8%99%9A%E6%8B%9Fdom/</url>
+      
+        <content type="html"><![CDATA[<h2 id="什么是虚拟-DOM-（vdom）"><a href="#什么是虚拟-DOM-（vdom）" class="headerlink" title="什么是虚拟 DOM （vdom）"></a>什么是虚拟 DOM （vdom）</h2><p>虚拟 dom 是相对于浏览器所渲染出来的真实 dom 的<br>以往，我们改变更新页面，只能通过首先查找dom对象，再进行修改dom的方式来达到目的。 但这种方式相当消耗计算资源， 因为<strong>每次查询 dom ，都需要遍历整颗 dom 树</strong><br>用对象的方式来描述真实的 dom，并且通过对象与真实dom建立了一一对应的关系，那么每次 dom 的更改，我通过找到相应对象，也就找到了相应的dom节点，再对其进行更新。这样的话，就能节省性能，因为<strong>js 对象的查询，比对整个dom 树的查询，所消耗的性能要少。</strong></p><h2 id="本质"><a href="#本质" class="headerlink" title="本质"></a>本质</h2><p><strong>虚拟dom的本质是js对象</strong><br>Vnode的本质就是用树型结构的JS对象来描述真实的DOM结构的信息，这个树结构的JS对象包含了整个DOM结构的信息</p><h2 id="虚拟-DOM-的优缺点"><a href="#虚拟-DOM-的优缺点" class="headerlink" title="虚拟 DOM 的优缺点"></a>虚拟 DOM 的优缺点</h2><h3 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h3><ul><li>降低浏览器性能消耗<br>因为Javascript的运算速度远大于DOM操作的执行速度，因此，运用patching算法来计算出真正需要更新的节点，最大限度地减少DOM操作，从而提高性能</li><li>diff算法,减少回流和重绘<br>通过diff算法，优化遍历，对真实dom进行打补丁式的新增、修改、删除，实现局部更新，减少回流和重绘</li><li>跨平台<br>虚拟 DOM 本质上是 JavaScript 对象，而 DOM 与平台强相关，相比之下虚拟 DOM ，可以进行更方便地跨平台操作，例如：服务器渲染、weex 开发等等<h3 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h3></li><li>首次显示要慢些<br>首次渲染大量DOM时，由于多了一层虚拟DOM的计算, 会比innerHTML插入慢</li><li>无法进行极致优化<br>虽然虚拟 DOM + 合理的优化，足以应对绝大部分应用的性能需求，但在一些性能要求极高的应用中 无法进行针对性的极致优化。</li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> web </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>响应式设计</title>
+      <link href="/2019/10/20/css/%E5%93%8D%E5%BA%94%E5%BC%8F%E8%AE%BE%E8%AE%A1/"/>
+      <url>/2019/10/20/css/%E5%93%8D%E5%BA%94%E5%BC%8F%E8%AE%BE%E8%AE%A1/</url>
+      
+        <content type="html"><![CDATA[<p>响应式设计是一种网络页面设计布局，页面的设计与开发应当根据用户行为以及设备环境、系统平台、屏幕尺寸等进行相应的响应和调整，也就是说网站的布局会根据视口来调整模块的大小和位置</p><p>响应式网站常见特点:</p><ul><li>同时适配PC + 平板 + 手机等</li><li>标签导航在接近手持终端设备时改变为经典的抽屉式导航</li><li>网站的布局会根据视口来调整模块的大小和位置<h2 id="实现方式"><a href="#实现方式" class="headerlink" title="实现方式"></a>实现方式</h2>响应式设计的基本原理是通过媒体查询检测不同的设备屏幕尺寸做处理，为了处理移动端，页面头部必须有meta声明viewport<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;viewport&quot;</span> <span class="attr">content</span>=<span class="string">&quot;width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no”&gt;</span></span></span><br></pre></td></tr></table></figure>属性对应如下：</li><li>width=device-width: 是自适应手机屏幕的尺寸宽度</li><li>maximum-scale:是缩放比例的最大值</li><li>inital-scale:是缩放的初始化</li><li>user-scalable:是用户的可以缩放的操作</li></ul><p>实现响应式布局的方式有如下：</p><ul><li>媒体查询</li><li>百分比</li><li>vw/vh</li><li>rem</li></ul><h3 id="媒体查询"><a href="#媒体查询" class="headerlink" title="媒体查询"></a>媒体查询</h3><p>CSS3中的增加了更多的媒体查询，就像if条件表达式一样，我们可以设置不同类型的媒体条件，并根据对应的条件，给相应符合条件的媒体调用相对应的样式表<br>使用@Media查询，可以针对不同的媒体类型定义不同的样式，如：</p><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@media</span> screen <span class="keyword">and</span> (<span class="attribute">max-width</span>: <span class="number">1920px</span>) &#123;  &#125;</span><br></pre></td></tr></table></figure><p>当视口在375px - 600px之间，设置特定字体大小18px</p><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@media</span> screen (<span class="attribute">min-width</span>: <span class="number">375px</span>) <span class="keyword">and</span> (<span class="attribute">max-width</span>: <span class="number">600px</span>) &#123;</span><br><span class="line">  <span class="selector-tag">body</span> &#123;</span><br><span class="line">    <span class="attribute">font-size</span>: <span class="number">18px</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>通过媒体查询，可以通过给不同分辨率的设备编写不同的样式来实现响应式的布局，比如我们为不同分辨率的屏幕，设置不同的背景图片<br>比如给小屏幕手机设置@2x图，为大屏幕手机设置@3x图，通过媒体查询就能很方便的实现</p><h3 id="百分比"><a href="#百分比" class="headerlink" title="百分比"></a>百分比</h3><p>通过百分比单位 “ % “ 来实现响应式的效果<br>比如当浏览器的宽度或者高度发生变化时，通过百分比单位，可以使得浏览器中的组件的宽和高随着浏览器的变化而变化，从而实现响应式的效果</p><h3 id="vw-vh"><a href="#vw-vh" class="headerlink" title="vw/vh"></a>vw/vh</h3><p>vw表示相对于视图窗口的宽度，vh表示相对于视图窗口高度。 任意层级元素，在使用vw单位的情况下，1vw都等于视图宽度的百分之一</p><h3 id="rem"><a href="#rem" class="headerlink" title="rem"></a>rem</h3><p>在以前也讲到，rem是相对于根元素html的font-size属性，默认情况下浏览器字体大小为16px，此时1rem = 16px</p><h2 id="响应式设计实现通常会从以下几方面思考"><a href="#响应式设计实现通常会从以下几方面思考" class="headerlink" title="响应式设计实现通常会从以下几方面思考"></a>响应式设计实现通常会从以下几方面思考</h2><ul><li>弹性盒子（包括图片、表格、视频）和媒体查询等技术</li><li>使用百分比布局创建流式布局的弹性UI，同时使用媒体查询限制元素的尺寸和内容变更范围</li><li>使用相对单位使得内容自适应调节</li><li>选择断点，针对不同断点实现不同布局和内容展示</li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> css </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 概念 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>HTTP的常见的状态码</title>
       <link href="/2019/10/12/%E7%BD%91%E7%BB%9C/http%20copy/"/>
       <url>/2019/10/12/%E7%BD%91%E7%BB%9C/http%20copy/</url>
@@ -465,6 +642,69 @@
     
     
     <entry>
+      <title>浏览器内核的理解</title>
+      <link href="/2019/10/11/web/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%86%85%E6%A0%B8%E7%9A%84%E7%90%86%E8%A7%A3/"/>
+      <url>/2019/10/11/web/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%86%85%E6%A0%B8%E7%9A%84%E7%90%86%E8%A7%A3/</url>
+      
+        <content type="html"><![CDATA[<h2 id="主要分成两部分："><a href="#主要分成两部分：" class="headerlink" title="主要分成两部分："></a>主要分成两部分：</h2><ul><li>渲染引擎(layout engineer或Rendering Engine)</li><li>JS引擎<h3 id="渲染引擎"><a href="#渲染引擎" class="headerlink" title="渲染引擎"></a>渲染引擎</h3>负责取得网页的内容（HTML、XML、图像等等）、整理讯息（例如加入CSS等），以及计算网页的显示方式，然后会输出至显示器或打印机。浏览器的内核的不同对于网页的语法解释会有不同，所以渲染的效果也不相同。所有网页浏览器、电子邮件客户端以及其它需要编辑、显示网络内容的应用程序都需要内核<h3 id="JS引擎"><a href="#JS引擎" class="headerlink" title="JS引擎"></a>JS引擎</h3>解析和执行javascript来实现网页的动态效果</li></ul><p>最开始渲染引擎和JS引擎并没有区分的很明确，后来JS引擎越来越独立，内核就倾向于只指渲染引擎</p><h2 id="常见的浏览器内核"><a href="#常见的浏览器内核" class="headerlink" title="常见的浏览器内核"></a>常见的浏览器内核</h2><ul><li>Trident内核：IE,MaxThon,TT,The World,360,搜狗浏览器等。[又称MSHTML]</li><li>Gecko内核：Netscape6及以上版本，FF,MozillaSuite/SeaMonkey等</li><li>Presto内核：Opera7及以上。 [Opera内核原为：Presto，现为：Blink;]</li><li>Webkit内核：Safari,Chrome等。 [ Chrome的Blink（WebKit的分支）]</li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> web </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>WEB标准以及W3C标准</title>
+      <link href="/2019/10/11/web/WEB%E6%A0%87%E5%87%86%E4%BB%A5%E5%8F%8AW3C%E6%A0%87%E5%87%86/"/>
+      <url>/2019/10/11/web/WEB%E6%A0%87%E5%87%86%E4%BB%A5%E5%8F%8AW3C%E6%A0%87%E5%87%86/</url>
+      
+        <content type="html"><![CDATA[<p>Web标准一般是将结构、表现、行为独立分开。 W3C标准对web标准提出规范化要求。现实来说，网页由三部分组成，分别是结构（html），表现(css)以及行为(js)。</p><h2 id="web标准："><a href="#web标准：" class="headerlink" title="web标准："></a>web标准：</h2><p>web 标准主要分为结构、表现、行为 3 部分。</p><ul><li>结构：指我们平时在 body 里面写的标签，主要是由 html 标签组成</li><li>表现：指更加丰富 html 标签样式，主要由 css 样式组成</li><li>行为：指页面和用户的交互，主要由 javascript 部分组成</li></ul><h2 id="W3C-规范"><a href="#W3C-规范" class="headerlink" title="W3C 规范"></a>W3C 规范</h2><p>w3c 对 web 标准提出了规范化的要求，即代码规范</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> web </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>回流与重绘</title>
+      <link href="/2019/10/11/web/%E5%9B%9E%E6%B5%81%E4%B8%8E%E9%87%8D%E7%BB%98/"/>
+      <url>/2019/10/11/web/%E5%9B%9E%E6%B5%81%E4%B8%8E%E9%87%8D%E7%BB%98/</url>
+      
+        <content type="html"><![CDATA[<p>在HTML中，每个元素都可以理解成一个盒子，在游览器解析过程中，会涉及到回流和重绘的概念。</p><ul><li>回流：布局引擎会根据各种样式计算每个盒子在页面上的大小与位置</li><li>重绘：计算好盒子模型的位置、大小及其其他属性后，浏览器根据每个盒子的特征进行绘制</li></ul><h2 id="游览器解析渲染机制"><a href="#游览器解析渲染机制" class="headerlink" title="游览器解析渲染机制"></a>游览器解析渲染机制</h2><ul><li>解析HTML，生成DOM树，解析CSS，生成CSSOM树</li><li>将DOM树和CSSOM树结合，生成渲染树（Render Tree）</li><li>Layout回流 根据生成的渲染树，进行回流，得到节点的信息</li><li>Painting 重绘 根据渲染树以及得到的节点信息，得到节点的绝对像素</li><li>Display 将像素发送给GPU，展示在页面上<h2 id="触发机制"><a href="#触发机制" class="headerlink" title="触发机制"></a>触发机制</h2></li><li>回流：当页面布局和节点发生变化时触发<ul><li>页面一开始渲染时(这无法避免)</li><li>元素的位置发生变化</li><li>添加或删除可见的DOM元素</li><li>节点内容发生变化，比如文本变化</li></ul></li><li>重绘：触发回流一定会触发重绘，另外还有一些其他引起重绘的行为<ul><li>颜色的修改</li><li>文本方向的修改</li><li>阴影的修改</li></ul></li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> web </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 概念 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>jQuery插件</title>
       <link href="/2019/10/10/jquery/%E6%8F%92%E4%BB%B6/"/>
       <url>/2019/10/10/jquery/%E6%8F%92%E4%BB%B6/</url>
@@ -532,6 +772,25 @@
       <categories>
           
           <category> jQuery </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>网站性能优化</title>
+      <link href="/2019/10/08/web/%E7%BD%91%E7%AB%99%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/"/>
+      <url>/2019/10/08/web/%E7%BD%91%E7%AB%99%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/</url>
+      
+        <content type="html"><![CDATA[<ul><li>content方面<ul><li>减少HTTP请求：合并文件、CSS精灵、inline Image</li><li>减少DNS查询：DNS缓存、将资源分布到恰当数量的主机名</li><li>减少DOM元素数量</li></ul></li><li>Server方面<ul><li>使用CDN</li><li>配置ETag</li><li>对组件使用Gzip压缩</li></ul></li><li>Cookie方面<ul><li>减小cookie大小</li></ul></li><li>css方面<ul><li>将样式表放到页面顶部</li><li>不使用CSS表达式</li><li>使用<link>不使用@import</li></ul></li><li>Javascript方面<ul><li>将脚本放到页面底部</li><li>将javascript和css从外部引入</li><li>压缩javascript和css</li><li>删除不需要的脚本</li><li>减少DOM访问</li></ul></li><li>图片方面<ul><li>优化图片：根据实际颜色需要选择色深、压缩</li><li>优化css精灵</li><li>不要在HTML中拉伸图片</li></ul></li></ul><h2 id="其他方面"><a href="#其他方面" class="headerlink" title="其他方面"></a>其他方面</h2><ul><li>减少http请求次数：CSS Sprites, JS、CSS源码压缩、图片大小控制合适；网页Gzip，CDN托管，data缓存 ，图片服务器。</li><li>前端模板 JS+数据，减少由于HTML标签导致的带宽浪费，前端用变量保存AJAX请求结果，每次操作本地变量，不用请求，减少请求次数</li><li>用innerHTML代替DOM操作，减少DOM操作次数，优化javascript性能。</li><li>当需要设置的样式很多时设置className而不是直接操作style</li><li>少用全局变量、缓存DOM节点查找的结果。减少IO读取操作</li><li>避免使用CSS Expression（css表达式）又称Dynamic properties(动态属性)</li><li>图片预加载，将样式表放在顶部，将脚本放在底部 加上时间戳</li><li>避免在页面的主体布局中使用table，table要等其中的内容完全下载之后才会显示出来，显示比div+css布局慢</li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> web </category>
           
       </categories>
       
@@ -690,6 +949,25 @@
       <categories>
           
           <category> css </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>浏览器渲染页面的过程</title>
+      <link href="/2019/09/29/web/%E6%B5%8F%E8%A7%88%E5%99%A8%E6%B8%B2%E6%9F%93%E9%A1%B5%E9%9D%A2%E7%9A%84%E8%BF%87%E7%A8%8B/"/>
+      <url>/2019/09/29/web/%E6%B5%8F%E8%A7%88%E5%99%A8%E6%B8%B2%E6%9F%93%E9%A1%B5%E9%9D%A2%E7%9A%84%E8%BF%87%E7%A8%8B/</url>
+      
+        <content type="html"><![CDATA[<h2 id="基础版本"><a href="#基础版本" class="headerlink" title="基础版本"></a>基础版本</h2><ul><li>浏览器根据请求的URL交给DNS域名解析，找到真实IP，向服务器发起请求；</li><li>服务器交给后台处理完成后返回数据，浏览器接收文件（HTML、JS、CSS、图象等）；</li><li>浏览器对加载到的资源（HTML、JS、CSS等）进行语法解析，建立相应的内部数据结构（如HTML的DOM）；</li><li>载入解析到的资源文件，渲染页面，完成。<h2 id="详细版"><a href="#详细版" class="headerlink" title="详细版"></a>详细版</h2></li><li>在浏览器地址栏输入URL</li><li>浏览器查看缓存，如果请求资源在缓存中并且新鲜，跳转到转码步骤 <ul><li>如果资源未缓存，发起新请求</li><li>如果已缓存，检验是否足够新鲜，足够新鲜直接提供给客户端，否则与服务器进行验证</li><li>检验新鲜通常有两个HTTP头进行控制Expires和Cache-Control<ul><li>HTTP1.0提供Expires，值为一个绝对时间表示缓存新鲜日期</li><li>HTTP1.1增加了Cache-Control: max-age=,值为以秒为单位的最大新鲜时间</li></ul></li></ul></li><li>浏览器解析URL获取协议，主机，端口，path</li><li>浏览器组装一个HTTP（GET）请求报文</li><li>浏览器获取主机ip地址，过程如下：<ul><li>浏览器缓存</li><li>本机缓存</li><li>hosts文件</li><li>路由器缓存</li><li>ISP DNS缓存</li><li>DNS递归查询（可能存在负载均衡导致每次IP不一样）</li></ul></li><li>打开一个socket与目标IP地址，端口建立TCP链接，三次握手如下<ul><li>客户端发送一个TCP的SYN=1，Seq=X的包到服务器端口</li><li>服务器发回SYN=1， ACK=X+1， Seq=Y的响应包</li><li>客户端发送ACK=Y+1， Seq=Z</li></ul></li><li>TCP链接建立后发送HTTP请求</li><li>服务器接受请求并解析，将请求转发到服务程序，如虚拟主机使用HTTP Host头部判断请求的服务程序</li><li>服务器检查HTTP请求头是否包含缓存验证信息如果验证缓存新鲜，返回304等对应状态码</li><li>处理程序读取完整请求并准备HTTP响应，可能需要查询数据库等操作</li><li>服务器将响应报文通过TCP连接发送回浏览器</li><li>浏览器接收HTTP响应，然后根据情况选择关闭TCP连接或者保留重用，关闭TCP连接的四次握手如下：<ul><li>主动方发送Fin=1， Ack=Z， Seq= X报文</li><li>被动方发送ACK=X+1， Seq=Z报文</li><li>被动方发送Fin=1， ACK=X， Seq=Y报文</li><li>主动方发送ACK=Y， Seq=X报文</li></ul></li><li>浏览器检查响应状态吗：是否为1XX，3XX， 4XX， 5XX，这些情况处理与2XX不同</li><li>如果资源可缓存，进行缓存</li><li>对响应进行解码（例如gzip压缩）</li><li>根据资源类型决定如何处理（假设资源为HTML文档）</li><li>解析HTML文档，构件DOM树，下载资源，构造CSSOM树，执行js脚本，这些操作没有严格的先后顺序，以下分别解释</li><li>构建DOM树：<ul><li>Tokenizing：根据HTML规范将字符流解析为标记</li><li>Lexing：词法分析将标记转换为对象并定义属性和规则</li><li>DOM construction：根据HTML标记关系将对象组成DOM树</li></ul></li><li>解析过程中遇到图片、样式表、js文件，启动下载</li><li>构建CSSOM树：<ul><li>Tokenizing：字符流转换为标记流</li><li>Node：根据标记创建节点</li><li>CSSOM：节点创建CSSOM树</li></ul></li><li>根据DOM树和CSSOM树构建渲染树: <ul><li>从DOM树的根节点遍历所有可见节点，不可见节点包括：1）script,meta这样本身不可见的标签。2)被css隐藏的节点，如display: none</li><li>对每一个可见节点，找到恰当的CSSOM规则并应用</li><li>发布可视节点的内容和计算样式</li></ul></li><li>js解析如下： <ul><li>浏览器创建Document对象并解析HTML，将解析到的元素和文本节点添加到文档中，此时document.readystate为loading</li><li>HTML解析器遇到没有async和defer的script时，将他们添加到文档中，然后执行行内或外部脚本。这些脚本会同步执行，并且在脚本下载和执行时解析器会暂停。这样就可以用document.write()把文本插入到输入流中。同步脚本经常简单定义函数和注册事件处理程序，他们可以遍历和操作script和他们之前的文档内容</li><li>当解析器遇到设置了async属性的script时，开始下载脚本并继续解析文档。脚本会在它下载完成后尽快执行，但是解析器不会停下来等它下载。异步脚本禁止使用document.write()，它们可以访问自己script和之前的文档元素</li><li>当文档完成解析，document.readState变成interactive</li><li>所有defer脚本会按照在文档出现的顺序执行，延迟脚本能访问完整文档树，禁止使用document.write()</li><li>浏览器在Document对象上触发DOMContentLoaded事件</li><li>此时文档完全解析完成，浏览器可能还在等待如图片等内容加载，等这些内容完成载入并且所有异步脚本完成载入和执行，document.readState变为complete，window触发load事件</li></ul></li><li>显示页面</li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> web </category>
           
       </categories>
       
@@ -867,7 +1145,7 @@
       <link href="/2019/09/27/html/HTML/"/>
       <url>/2019/09/27/html/HTML/</url>
       
-        <content type="html"><![CDATA[<h2 id="html是什么"><a href="#html是什么" class="headerlink" title="html是什么"></a>html是什么</h2><ul><li>HTML的全称为超文本标记语言，是一种标记语言。</li><li>HTML文本是由HTML命令组成的描述性文本，HTML命令可以说明文字，图形、动画、声音、表格、链接等<h2 id="xhtml和html有什么区别"><a href="#xhtml和html有什么区别" class="headerlink" title="xhtml和html有什么区别"></a>xhtml和html有什么区别</h2></li><li>一个是功能上的差别<ul><li>主要是XHTML可兼容各大浏览器、手机以及PDA，并且浏览器也能快速正确地编译网页</li></ul></li><li>另外是书写习惯的差别<ul><li>XHTML 元素必须被正确地嵌套，闭合，区分大小写，文档必须拥有根元素</li></ul></li></ul>]]></content>
+        <content type="html"><![CDATA[<h2 id="html是什么"><a href="#html是什么" class="headerlink" title="html是什么"></a>html是什么</h2><ul><li>HTML的全称为超文本标记语言，是一种标记语言。</li><li>HTML文本是由HTML命令组成的描述性文本，HTML命令可以说明文字，图形、动画、声音、表格、链接等</li></ul><h2 id="xhtml和html有什么区别"><a href="#xhtml和html有什么区别" class="headerlink" title="xhtml和html有什么区别"></a>xhtml和html有什么区别</h2><ul><li>一个是功能上的差别<ul><li>主要是XHTML可兼容各大浏览器、手机以及PDA，并且浏览器也能快速正确地编译网页</li></ul></li><li>另外是书写习惯的差别<ul><li>XHTML 元素必须被正确地嵌套，闭合，区分大小写，文档必须拥有根元素</li></ul></li></ul>]]></content>
       
       
       <categories>
